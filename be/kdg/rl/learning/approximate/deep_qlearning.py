@@ -18,29 +18,29 @@ class DeepQLearning(LearningStrategy):
         super().__init__(environment, λ, γ, t_max)
         self.batch_size = batch_size
         self.ddqn = ddqn  # are we using double deep q learning network?
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
 
     def on_learning_start(self):
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def next_action(self, state):
         """ Neural net decides on the next action to take """
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def learn(self, episode: Episode):
         """ Sample batch from Episode and train NN on sample"""
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         super().learn(episode)
         pass
 
     def build_training_set(self, episode: Episode):
         """ Build training set from episode """
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def train_network(self, training_set):
         """ Train neural net on training set """
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass

@@ -45,13 +45,13 @@ class MarkovDecisionProcess:
         return self._reward_model[state, action]
 
     def update_reward(self, p: Percept) -> None:
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def update_counts(self, percept: Percept) -> None:
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def update_transition_model(self, percept: Percept) -> None:
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass

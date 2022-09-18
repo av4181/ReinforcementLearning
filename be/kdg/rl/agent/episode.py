@@ -24,12 +24,12 @@ class Episode:
 
     def compute_returns(self) -> None:
         """ For EACH Percept in the Episode, calculate its discounted return Gt"""
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def sample(self, batch_size: int):
         """ Sample and return a random batch of Percepts from this Episode """
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     @property

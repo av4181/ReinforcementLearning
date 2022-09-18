@@ -42,13 +42,13 @@ class TabularLearner(LearningStrategy):
         self.t = 0
 
     def next_action(self, s: int):
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def evaluate(self):
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
 
     def improve(self):
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass

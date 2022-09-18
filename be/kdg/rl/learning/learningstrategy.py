@@ -47,5 +47,5 @@ class LearningStrategy(ABC):
 
     def decay(self):
         # Reduce epsilon ε, because we need less and less exploration as time progresses
-        #TODO: COMPLETE THE CODE
+        # TODO: COMPLETE THE CODE
         pass
