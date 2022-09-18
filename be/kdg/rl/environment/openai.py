@@ -7,7 +7,10 @@ from be.kdg.rl.environment.environment import Environment
 
 
 class OpenAIGym(Environment, ABC):
-    """ Wrapper for all OpenAI Environments """
+    """
+    Superclass for all kinds of OpenAI environments
+    Wrapper for all OpenAI Environments
+    """
 
     def __init__(self, name: str) -> None:
         super().__init__()
@@ -57,7 +60,7 @@ class OpenAIGym(Environment, ABC):
 class FrozenLakeEnvironment(OpenAIGym):
 
     def __init__(self) -> None:
-        super().__init__(name="FrozenLake-v0")
+        super().__init__(name="FrozenLake-v1")
 
 
 class CartPoleEnvironment(OpenAIGym):

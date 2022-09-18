@@ -1,7 +1,7 @@
 class Percept:
     def __init__(self, percept: tuple):
         self._step = None
-        self._return = None  # this is de return G_t
+        self._return = None  # this will hold the return G_t
         self._state, self._action, self._next_state, self._reward, self._done = percept
 
     @property

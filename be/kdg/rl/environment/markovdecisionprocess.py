@@ -6,8 +6,10 @@ from be.kdg.rl.agent.percept import Percept
 
 class MarkovDecisionProcess:
     """
-    Abstractie van Environment maken a.d.h.v. een wiskundig model voor de omgeving (Environment)
-    Deze klasse is ONVOLLEDIG. Je hebt ze niet direct nodig, maar de implementatie ervan kan wel meer inzicht geven.
+    This class is INCOMPLETE.
+    Making abstraction of Environment using a mathematical model (MDP) for the environment (Environment)
+    You don't need this class for implementing the algorithms, because we'll be using model-free algorithms, so we'll need to learn the model from experience.
+    Implementing this can give more insight into Reinforcement Learning, though.
     """
 
     def __init__(self, environment: Environment) -> None:
@@ -36,20 +38,20 @@ class MarkovDecisionProcess:
         self.update_counts(percept)
         self.update_transition_model(percept)
 
-    def update_reward(self, p: Percept) -> None:
-        # aan te vullen
-        pass
-
-    def update_counts(self, percept: Percept) -> None:
-        # aan te vullen
-        pass
-
-    def update_transition_model(self, percept: Percept) -> None:
-        # aan te vullen
-        pass
-
     def p(self, tsa) -> float:
         return self.P[tsa]
 
     def reward(self, state: int, action: int) -> float:
         return self._reward_model[state, action]
+
+    def update_reward(self, p: Percept) -> None:
+        #TODO: COMPLETE THE CODE
+        pass
+
+    def update_counts(self, percept: Percept) -> None:
+        #TODO: COMPLETE THE CODE
+        pass
+
+    def update_transition_model(self, percept: Percept) -> None:
+        #TODO: COMPLETE THE CODE
+        pass

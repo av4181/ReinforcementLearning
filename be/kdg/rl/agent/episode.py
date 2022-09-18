@@ -6,8 +6,9 @@ from be.kdg.rl.environment.environment import Environment
 
 class Episode:
     """
-    Een verzameling van Percepts vormt een Episode. Per stap/tijdstip t wordt een Percept toegevoegd.
-    Deze klasse zal je moeten aanvullen met nieuwe functionaliteiten
+    A collection of Percepts forms an Episode. A Percept is added per step/time t.
+    The Percept contains the state, action, reward and next_state.
+    This class is INCOMPLETE
     """
 
     def __init__(self, env: Environment) -> None:
@@ -18,17 +19,17 @@ class Episode:
         self._percepts.append(percept)
 
     def percepts(self, n: int):
-        """ Haal n laatste percepts op uit Episode """
+        """ Return n final percepts from this Episode """
         pass
 
     def compute_returns(self) -> None:
-        """ Bereken voor elke Percept uit de Episode zijn discounted return Gt"""
-        # HIER AANVULLEN
+        """ For EACH Percept in the Episode, calculate its discounted return Gt"""
+        #TODO: COMPLETE THE CODE
         pass
 
     def sample(self, batch_size: int):
-        """ Sample een willekeurige batch uit deze Episode """
-        # HIER AANVULLEN
+        """ Sample and return a random batch of Percepts from this Episode """
+        #TODO: COMPLETE THE CODE
         pass
 
     @property

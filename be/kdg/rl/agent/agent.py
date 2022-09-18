@@ -43,7 +43,7 @@ class TabularAgent(Agent):
             # initialize the start state
             state = self.env.reset()
             # reset the learning strategy
-            self.learning_strategy.start_episode()
+            self.learning_strategy.on_learning_start()
 
             # while the episode isn't finished by length
             while not self.learning_strategy.done():
@@ -52,8 +52,10 @@ class TabularAgent(Agent):
                 action = self.learning_strategy.next_action(state)
                 # agent observes the results of his action: the next_state and the corresponding reward
                 observation = self.env.step(action)[:-1]
-                # render environment
+
+                # render environment (don't render every step, only every X-th, or at the end of the learning process)
                 # self.env.render()
+
                 # create Percept from s,a,r,s' and add to Episode
                 percept = Percept((state, action) + observation)
                 episode.add(percept)

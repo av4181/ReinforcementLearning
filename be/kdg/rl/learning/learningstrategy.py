@@ -7,7 +7,7 @@ from be.kdg.rl.environment.environment import Environment
 class LearningStrategy(ABC):
     """
     Implementations of this class represent a Learning Method
-    Deze klasse is ONVOLLEDIG
+    This class is INCOMPLETE
     """
     env: Environment
 
@@ -29,19 +29,23 @@ class LearningStrategy(ABC):
 
     @abstractmethod
     def learn(self, episode: Episode):
-        # implementatie uit subklassen komt voor deze statements:
+        # at this point subclasses insert their implementation
+        # see for example be\kdg\rl\learning\tabular\tabular_learning.py
         self.t += 1
         self.τ += 1
 
     @abstractmethod
-    def start_episode(self):
-        """ Implements all necessary initialization that needs to be done at the start of new Episode """
-        pass
-
-    def decay(self):
-        # Reduce epsilon ε, because we need less and less exploration as time progresses
-        # HIER AANVULLEN
+    def on_learning_start(self):
+        """
+        Implements all necessary initialization that needs to be done at the start of new Episode
+        Each subclasse learning algorithm should decide what to do here
+        """
         pass
 
     def done(self):
         return self.t > self.t_max
+
+    def decay(self):
+        # Reduce epsilon ε, because we need less and less exploration as time progresses
+        #TODO: COMPLETE THE CODE
+        pass

@@ -9,13 +9,9 @@ class Qlearning(TabularLearner):
         TabularLearner.__init__(self, environment, α, λ, γ, t_max)
 
     def learn(self, episode: Episode):
-        # HIER AANVULLEN
+        #TODO: COMPLETE THE CODE
 
         super().learn(episode)
-
-    def evaluate(self):
-        # HIER AANVULLEN
-        pass
 
 
 class NStepQlearning(TabularLearner):
@@ -26,10 +22,11 @@ class NStepQlearning(TabularLearner):
         self.percepts = []  # this will buffer the percepts
 
     def learn(self, episode: Episode):
-        # HIER AANVULLEN
+        #TODO: COMPLETE THE CODE
 
         super().learn(episode)
 
-    def evaluate(self):
-        # HIER AANVULLEN
-        pass
+
+class MonteCarloLearning:
+    #TODO: COMPLETE THE CODE
+    pass

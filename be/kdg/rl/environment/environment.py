@@ -2,7 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class Environment(ABC):
-    """Abstract Environment"""
+    """
+    Abstract Environment
+    Superclass for all kinds of environments
+    """
 
     @abstractmethod
     def reset(self):

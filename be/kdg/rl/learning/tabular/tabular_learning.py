@@ -30,25 +30,25 @@ class TabularLearner(LearningStrategy):
         # state-action table
         self.q_values = np.zeros((self.env.state_size, self.env.n_actions))
 
-    def next_action(self, s: int):
-        # HIER AANVULLEN
-        pass
-
     @abstractmethod
     def learn(self, episode: Episode):
-        # implementatie uit subklassen komt voor deze statements:
+        # subclasses insert their implementation at this point
+        # see for example be\kdg\rl\learning\tabular\qlearning.py
         self.evaluate()
         self.improve()
         super().learn(episode)
 
-    @abstractmethod
+    def on_learning_start(self):
+        self.t = 0
+
+    def next_action(self, s: int):
+        #TODO: COMPLETE THE CODE
+        pass
+
     def evaluate(self):
-        # hier moet je niets voorzien, maar wel in de subklassen
+        #TODO: COMPLETE THE CODE
         pass
 
     def improve(self):
-        # HIER AANVULLEN
+        #TODO: COMPLETE THE CODE
         pass
-
-    def start_episode(self):
-        self.t = 0
