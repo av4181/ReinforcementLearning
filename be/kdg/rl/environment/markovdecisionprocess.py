@@ -1,14 +1,15 @@
 import numpy as np
 
-from be.kdg.rl.environment.environment import Environment
 from be.kdg.rl.agent.percept import Percept
+from be.kdg.rl.environment.environment import Environment
 
 
 class MarkovDecisionProcess:
     """
     This class is INCOMPLETE.
     Making abstraction of Environment using a mathematical model (MDP) for the environment (Environment)
-    You don't need this class for implementing the algorithms, because we'll be using model-free algorithms, so we'll need to learn the model from experience.
+    You don't need this class for implementing the algorithms, because we'll be using model-free algorithms,
+    so we'll need to learn the model from experience.
     Implementing this can give more insight into Reinforcement Learning, though.
     """
 

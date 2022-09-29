@@ -41,7 +41,7 @@ class TabularAgent(Agent):
             episode = Episode(self.env)
             self.episodes.append(episode)
             # initialize the start state
-            state = self.env.reset()
+            state, _ = self.env.reset()
             # reset the learning strategy
             self.learning_strategy.on_learning_start()
 
@@ -50,15 +50,25 @@ class TabularAgent(Agent):
 
                 # learning strategy (policy) determines next action to take
                 action = self.learning_strategy.next_action(state)
-                # agent observes the results of his action: the next_state and the corresponding reward
-                observation = self.env.step(action)[:-1]
+                # agent observes the results of his action
+                # step method returns a tuple with values (s', r, terminated, truncated, info)
+                t, r, terminated, truncated, info = self.env.step(action)
 
                 # render environment (don't render every step, only every X-th, or at the end of the learning process)
                 # self.env.render()
 
-                # create Percept from s,a,r,s' and add to Episode
-                percept = Percept((state, action) + observation)
+                # create Percept object from observed values state,action,r,s' (SARS') and terminate flag, but
+                # ignore values truncated and info
+                percept = Percept((state, action, r, t, terminated))
+
+                # add the newly created Percept to the Episode
                 episode.add(percept)
+
+                # update Agent's state
+                state = percept.next_state
+
+                # learn from Percepts in Episode
+                self.learning_strategy.learn(episode)
 
                 # learn from one or more Percepts in the Episode
                 self.learning_strategy.learn(episode)
