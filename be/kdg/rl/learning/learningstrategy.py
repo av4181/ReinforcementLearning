@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import numpy as np
 
 from be.kdg.rl.agent.episode import Episode
 from be.kdg.rl.environment.environment import Environment
@@ -26,11 +27,20 @@ class LearningStrategy(ABC):
     @abstractmethod
     def next_action(self, state):
         pass
+    # uit de policy pi een actie kiezen
+    # de policy pi is een tabel met voor elke state een kansverdeling over de acties
+    # Bij start :
+    # Richtingen           L        D          R        U
+    #               s1     0.25     0.25        0.25    0.25
+    #               s2      0.25    0.25        0.25    0.25
+    #               s3      0.25    0.25        0.25    0.25
 
     @abstractmethod
     def learn(self, episode: Episode):
         # at this point subclasses insert their implementation
         # see for example be\kdg\rl\learning\tabular\tabular_learning.py
+        # teller t telt per episode
+        #teller tau update bij einde episode
         self.t += 1
         self.τ += 1
 
@@ -45,7 +55,13 @@ class LearningStrategy(ABC):
     def done(self):
         return self.t > self.t_max
 
+# TE VERVOLLEDIGEN
     def decay(self):
         # Reduce epsilon ε, because we need less and less exploration as time progresses
-        # TODO: COMPLETE THE CODE
+        # Zie het epsilon greedy algorithme
+
+        self.ε = self.ε_min + (self.ε_max - self.ε_min) * np.exp(-self.λ * self.τ)
         pass
+
+    def on_episode_end(self):
+        self.τ += 1

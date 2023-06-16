@@ -1,7 +1,7 @@
 from abc import ABC
 
-import gym as gym
-from gym.wrappers import TimeLimit
+import gymnasium as gym
+from gymnasium.wrappers import TimeLimit
 
 from be.kdg.rl.environment.environment import Environment
 
@@ -15,7 +15,7 @@ class OpenAIGym(Environment, ABC):
     def __init__(self, name: str) -> None:
         super().__init__()
         self._name = name
-        self._env: TimeLimit = gym.make(name)
+        self._env: TimeLimit = gym.make(name,render_mode='human')
 
     def reset(self):
         return self._env.reset()
@@ -24,7 +24,7 @@ class OpenAIGym(Environment, ABC):
         return self._env.step(action)
 
     def render(self):
-        self._env.render()
+        self._env.update()
 
     def close(self) -> None:
         self._env.close()
@@ -66,4 +66,15 @@ class FrozenLakeEnvironment(OpenAIGym):
 class CartPoleEnvironment(OpenAIGym):
 
     def __init__(self) -> None:
-        super().__init__(name="CartPole-v0")
+        super().__init__(name='CartPole-v1')
+
+# TOEVOEGEN VAN DE NONSLIPPERY ENVIRONMENT
+
+class FrozenLakeNotSlipperyEnvironment(OpenAIGym):
+    def __init__(self) -> None:
+        gym.envs.registration.register(
+            id='FrozenLakeNotSlippery-v1',
+            entry_point='gym.envs.toy_text:FrozenLakeEnv',
+            kwargs={'map_name': '4x4', 'is_slippery': False}
+        )
+        super().__init__(name="FrozenLakeNotSlippery-v1")

@@ -27,7 +27,7 @@ class Environment(ABC):
     @abstractmethod
     def action_space(self):
         pass
-
+    #Gym bibliotheel kan direct ook het aantal states en actions geven met "env.observation_space.n" and "env.action_space.n"
     @property
     @abstractmethod
     def observation_space(self):

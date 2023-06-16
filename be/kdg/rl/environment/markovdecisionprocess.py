@@ -19,6 +19,7 @@ class MarkovDecisionProcess:
         self.n_states = self.env.state_size  # (given)
 
         # state-action-next state reward model (learned)
+        # Bij 4x4 wordt dit een 16x4 matrix
         self._reward_model = np.zeros((self.n_states, self.n_actions))
 
         # how often state s and action a occurred (learned)
@@ -45,14 +46,18 @@ class MarkovDecisionProcess:
     def reward(self, state: int, action: int) -> float:
         return self._reward_model[state, action]
 
+    # DEZE 3 UPDATE FUNCTIES ZIJN AAN TE PASSEN
+
     def update_reward(self, p: Percept) -> None:
-        # TODO: COMPLETE THE CODE
+        self._reward_model[p.state, p.next_state] = p.reward
         pass
 
     def update_counts(self, percept: Percept) -> None:
-        # TODO: COMPLETE THE CODE
+        self.n_sa[percept.state, percept.action] += 1
+        self.n_tsa[percept.state, percept.next_state, percept.action] += 1
         pass
 
     def update_transition_model(self, percept: Percept) -> None:
-        # TODO: COMPLETE THE CODE
+        # Update de kans dat een next_step wordt genomen, gegeven de huidige state en actie
+        self.P[percept.next_state, percept.state, percept.action] = self.n_tsa / self.n_sa
         pass
