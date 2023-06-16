@@ -83,7 +83,7 @@ class TabularAgent(Agent):
                 state = percept.next_state
 
                 # learn from Percepts in Episode
-                # Agent gaat telkens de learn methode van tabular learner oproepen in geval van forzen lake
+                # Agent gaat telkens de learn methode van tabular learner oproepen in geval van frozen lake
                 # In het algemeen gaat telkens het algoritme van de van toepassing zijnde learning strategy worden
                 # opgeroepen.
                 self.learning_strategy.learn(episode)
@@ -155,7 +155,7 @@ class DQNAgent(Agent):
             # initialize the start state
             state = self.env.reset()
             # reset the learning strategy
-            self.learning_strategy.start_episode()
+            self.learning_strategy.on_learning_start()
 
             # Added episode count for easier tracking of episodes
             print(f'\n\nEpisode {self.episode_count + 1}')
@@ -170,8 +170,15 @@ class DQNAgent(Agent):
                 observation = self.env.step(action)[:-1]
                 # render environment
                 #self.env.render()
+
+                # step method returns a tuple with values (s', r, terminated, truncated, info)
+                t, r, terminated, truncated, info = self.env.step(action)
                 # create Percept from s,a,r,s' and add to Episode
-                percept = Percept((state, action) + observation)
+
+                # create Percept object from observed values state,action,r,s' (SARS') and terminate flag, but
+                # ignore values truncated and info
+                percept = Percept((state, action, r, t, terminated))
+                # percept = Percept((state, action) + observation)
                 episode.add(percept)
 
                 # learn from one or more Percepts in the Episode

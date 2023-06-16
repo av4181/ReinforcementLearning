@@ -1,10 +1,11 @@
 import matplotlib
 import pygame as pygame
 
-from be.kdg.rl.agent.agent import TabularAgent, Agent
-from be.kdg.rl.environment.openai import FrozenLakeEnvironment
+from be.kdg.rl.agent.agent import TabularAgent, Agent, DQNAgent
+from be.kdg.rl.environment.openai import FrozenLakeEnvironment, CartPoleEnvironment
 from be.kdg.rl.learning.learningstrategy import LearningStrategy
 from be.kdg.rl.learning.tabular.qlearning import Qlearning, NStepQlearning
+from be.kdg.rl.learning.approximate.deep_qlearning import DeepQLearning
 import gymnasium as gym
 
 import matplotlib.pyplot as plt
@@ -17,8 +18,8 @@ plt.rcParams.update({'font.size': 17})
 
 if __name__ == '__main__':
 
-    matplotlib.use("TkAgg")  # activate tkinter
-    experiment = parameters.current_experiment  # choose experiment to run
+    # matplotlib.use("TkAgg")  # activate tkinter
+    experiment = parameters.current_experiment  # zie parameters.py
     parameters.init()  # initialize local environment
 
     learning = parameters.params.get("experiment").get(experiment).get("learning")
@@ -34,24 +35,6 @@ if __name__ == '__main__':
                         )
     agent.train()
 
-
-    # matplotlib.use("TkAgg")  # activate tkinter
-    #
-    # environment = FrozenLakeEnvironment()
-    # environment.reset()
-    # strategie = Qlearning(environment)
-    #
-    #
-    # agent = TabularAgent(environment,strategie,n_episodes=50)
-    # agent.train()
-
-    # # create an Agent that uses Qlearning Strategy
-    # agent: Agent = TabularAgent(environment, Qlearning(environment))
-    # agent.train()
-
-    # # create an Agent that uses NStepQlearning Strategy
-    # agent: Agent = TabularAgent(environment, NStepQlearning(environment, 5))
-    # agent.train()
 
 
 

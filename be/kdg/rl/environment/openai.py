@@ -66,7 +66,7 @@ class FrozenLakeEnvironment(OpenAIGym):
 class CartPoleEnvironment(OpenAIGym):
 
     def __init__(self) -> None:
-        super().__init__(name='CartPole-v1')
+        super().__init__(name='CartPole-v1')    # versie v0 is outdated
 
 # TOEVOEGEN VAN DE NONSLIPPERY ENVIRONMENT
 

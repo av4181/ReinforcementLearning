@@ -1,17 +1,17 @@
 import os
 
-############# PARAMETERS #############
-current_experiment = "experiment11"
+# Hier kunnen de verschillende variabelen aangepast worden en kan de keuze van environment, agent en strategy gekozen worden
+current_experiment = "experiment01"
 n_episodes = 10
-output_freq = 10        # define at what frequency of episodes we want to create output
-update_interval = 10    # update interval for deep learning
+output_freq = 10        # met welke frequentie wordt er output gegenereerd
+update_interval = 10    # update interval voor deep learning
 
 def init():
     init_folders(current_experiment)
 
 
 params = {
-    # directories for storing output graphs and results
+    # directories voor resultaten
     "dirs": {
         "output": os.path.join("./", "output"),
         "qval": os.path.join("images", "qval"),
@@ -30,7 +30,7 @@ params = {
             'γ': 0.9,
             't_max': 99
         },
-        # ## Qlearning experiments ## #
+        #  Qlearning
         "experiment01": {
             'description': 'Experiment QLearning with completely random agent',
             'agent': 'TabularAgent',
@@ -127,7 +127,7 @@ params = {
             'γ': 0.9,
             't_max': 99
         },
-        # ## NStepQLearning experiments ## #
+        # NStepQLearning #
         "experiment10": {
             'description': 'Experiment NStepQLearning',
             'agent': 'TabularAgent',
@@ -212,7 +212,7 @@ params = {
             'γ': 0.9,
             't_max': 99
         },
-        # ## Monte Carlo experiments ## #
+        # Monte Carlo #
         "experiment20": {
             'description': 'Experiment MonteCarloLearning',
             'agent': 'TabularAgent',
@@ -225,7 +225,7 @@ params = {
             'γ': 0.9,
             't_max': 99
         },
-        # ## DeepQLearning experiments ## #
+        # DeepQLearning #
         "experiment30": {
             'description': 'Experiment DeepQLearning',
             'agent': 'DQNAgent',
@@ -238,7 +238,6 @@ params = {
             'γ': 0.9,
             't_max': 99
         },
-        # ## DeepQLearning experiments ## #
         "experiment30b": {
             'description': 'Experiment DeepQLearning',
             'agent': 'DQNAgent',
@@ -251,14 +250,14 @@ params = {
             'γ': 0.9,
             't_max': 99
         },
-        # ## Double DeepQLearning experiments ## #
+        # Double DeepQLearning experiments #
         "experiment40": {
             'description': 'Experiment DoubleDeepQLearning',
             'agent': 'DQNAgent',
             'environment': 'CartPoleEnvironment',
             'learning': 'DeepQLearning',
             'ddqn': "True",
-            'n': '20',  # batch_size
+            'n': '50',  # batch_size
             'α': 0.7,
             'λ': 0.0005,
             'γ': 0.9,

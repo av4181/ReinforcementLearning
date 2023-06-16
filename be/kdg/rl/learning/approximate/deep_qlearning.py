@@ -41,6 +41,7 @@ class DeepQLearning(LearningStrategy):
 
     def next_action(self, state):
         """ Neural net decides on the next action to take """
+        # zie learningstrategy epsilon decay
         # TODO: COMPLETE THE CODE
         exploitation_tradeoff = random.uniform(0, 1)
         if exploitation_tradeoff > self.ε:
