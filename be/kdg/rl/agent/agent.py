@@ -54,7 +54,7 @@ class TabularAgent(Agent):
             episode = Episode(self.env)
             self.episodes.append(episode)
             # initialize the start state
-            state,_ = self.env.reset()
+            state, _ = self.env.reset()
             # reset the learning strategy
             self.learning_strategy.on_learning_start()
 
@@ -65,7 +65,6 @@ class TabularAgent(Agent):
                 # learning strategy (policy) determines next action to take
                 action = self.learning_strategy.next_action(state)
                 # agent observes the results of his action : next state and the corresponding reward
-                observation = self.env.step(action)[:-1]
                 # step method returns a tuple with values (s', r, terminated, truncated, info)
                 t, r, terminated, truncated, info = self.env.step(action)
 
@@ -91,7 +90,7 @@ class TabularAgent(Agent):
                 # learn from one or more Percepts in the Episode
                 self.learning_strategy.learn(episode)
 
-                # update state
+                # update Agent's state
                 state = percept.next_state
 
                 # break if episode is over
@@ -184,7 +183,7 @@ class DQNAgent(Agent):
                 # learn from one or more Percepts in the Episode
                 self.learning_strategy.learn(episode)
 
-                # update state
+                # update Agent's state
                 state = percept.next_state
 
                 # break if episode is over
