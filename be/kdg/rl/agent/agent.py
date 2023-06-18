@@ -36,7 +36,7 @@ class Agent:
 
 class TabularAgent(Agent):
 
-    def __init__(self, environment: Environment, learning_strategy: TabularLearner, n_episodes=50) -> None:
+    def __init__(self, environment: Environment, learning_strategy: TabularLearner, n_episodes=200) -> None:
         self.stats = pd.DataFrame({
             "episode_nr": np.arange(1, n_episodes + 2, 1),
             "total_reward": np.empty(n_episodes + 1, dtype=int),
@@ -48,9 +48,10 @@ class TabularAgent(Agent):
         super(TabularAgent, self).train()
 
         # as longs as the agents hasn't reached the maximum number of episodes
+        # Algo 1 while episode_count < n_episodes
         while not self.done:
 
-            # start a new episode
+            # start a new episode met constructor
             episode = Episode(self.env)
             self.episodes.append(episode)
             # initialize the start state
@@ -63,6 +64,7 @@ class TabularAgent(Agent):
             while not self.learning_strategy.done():
 
                 # learning strategy (policy) determines next action to take
+                # a = π (a | s)
                 action = self.learning_strategy.next_action(state)
                 # agent observes the results of his action : next state and the corresponding reward
                 # step method returns a tuple with values (s', r, terminated, truncated, info)
@@ -78,7 +80,7 @@ class TabularAgent(Agent):
                 # add the newly created Percept to the Episode
                 episode.add(percept)
 
-                # update Agent's state
+                # update Agent's state, dit is de t uit env.step(action) methode
                 state = percept.next_state
 
                 # learn from Percepts in Episode
@@ -90,7 +92,7 @@ class TabularAgent(Agent):
                 # learn from one or more Percepts in the Episode
                 self.learning_strategy.learn(episode)
 
-                # update Agent's state
+                # update state
                 state = percept.next_state
 
                 # break if episode is over
@@ -146,6 +148,7 @@ class DQNAgent(Agent):
         super(DQNAgent, self).train()
 
         # as longs as the agents hasn't reached the maximum number of episodes
+        # Algo 1 while episode_count < n_episodes
         while not self.done:
 
             # start a new episode
@@ -164,6 +167,7 @@ class DQNAgent(Agent):
             while not self.learning_strategy.done():
 
                 # learning strategy (policy) determines next action to take
+                # a = π (a | s)
                 action = self.learning_strategy.next_action(state)
                 # agent observes the results of his action: the next_state and the corresponding reward
                 observation = self.env.step(action)[:-1]
@@ -179,6 +183,12 @@ class DQNAgent(Agent):
                 percept = Percept((state, action, r, t, terminated))
                 # percept = Percept((state, action) + observation)
                 episode.add(percept)
+
+                # update Agent's state, dit is de t uit env.step(action) methode
+                state = percept.next_state
+
+                # learn from one or more Percepts in the Episode
+                self.learning_strategy.learn(episode)
 
                 # learn from one or more Percepts in the Episode
                 self.learning_strategy.learn(episode)

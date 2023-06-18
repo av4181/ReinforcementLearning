@@ -29,6 +29,7 @@ class MarkovDecisionProcess:
         self.n_tsa = np.zeros((self.n_states, self.n_states, self.n_actions))
 
         # Markov Decision Process transition model (learned)
+        # de kans dat je naar state s' gaat gegeven state s en actie a, matrix volledig nul in het begin
         self.P = np.zeros((self.n_states, self.n_states, self.n_actions))
 
         # Update count
@@ -48,6 +49,7 @@ class MarkovDecisionProcess:
 
     # DEZE 3 UPDATE FUNCTIES ZIJN AAN TE PASSEN
 
+    # R(s, a, s') of R(s, a)
     def update_reward(self, p: Percept) -> None:
         self._reward_model[p.state, p.next_state] = p.reward
         pass
@@ -57,6 +59,8 @@ class MarkovDecisionProcess:
         self.n_tsa[percept.state, percept.next_state, percept.action] += 1
         pass
 
+    # transition model is de kans dat je naar state s' gaat gegevens huidige state s en actie a
+    # wet van voorwaardelijke kansen
     def update_transition_model(self, percept: Percept) -> None:
         # Update de kans dat een next_step wordt genomen, gegeven de huidige state en actie
         self.P[percept.next_state, percept.state, percept.action] = self.n_tsa / self.n_sa

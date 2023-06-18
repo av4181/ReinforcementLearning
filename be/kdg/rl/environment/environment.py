@@ -6,7 +6,7 @@ class Environment(ABC):
     Abstract Environment
     Superclass for all kinds of environments
     """
-
+    # Environment moet na een episode telkens gereset worden
     @abstractmethod
     def reset(self):
         pass
@@ -15,6 +15,7 @@ class Environment(ABC):
     def step(self, action):
         pass
 
+    # environment moet telkens gerendered worden
     @abstractmethod
     def render(self):
         pass

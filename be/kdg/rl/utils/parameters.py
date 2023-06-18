@@ -1,8 +1,8 @@
 import os
 
 # Hier kunnen de verschillende variabelen aangepast worden en kan de keuze van environment, agent en strategy gekozen worden
-current_experiment = "experiment01"
-n_episodes = 10
+current_experiment = "experiment08"
+n_episodes = 500
 output_freq = 10        # met welke frequentie wordt er output gegenereerd
 update_interval = 10    # update interval voor deep learning
 
@@ -38,7 +38,7 @@ params = {
             'learning': 'Qlearning',
             'ddqn': None,
             'n': None,
-            'α': 0.7,
+            'α': 0.5,
             'λ': 0.0005,
             'γ': 0.9,
             't_max': 99

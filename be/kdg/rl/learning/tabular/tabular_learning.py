@@ -13,7 +13,7 @@ class TabularLearner(LearningStrategy):
     """
     A tabular learner implements a tabular method such as Q-Learning, N-step Q-Learning, ...
     """
-    π: ndarray
+    π: ndarray          # policy tabel
     v_values: ndarray
     q_values: ndarray
 
@@ -24,13 +24,17 @@ class TabularLearner(LearningStrategy):
         self.α = α
 
         # γ discount factor belang toekomstige rewards vs. directe rewards "beter 1 vogel in de hand dan 2 in de lucht"
-        # policy table
+
+        # policy table, initiële policy tabel bevat voor elke state 1/aantal acties.  We hebben BOVEN, BENEDEN, LINKS
+        # en RECHTS DUS 0.25 IN DE INITIÊLE TABEL VOOR ELKE STATE
+        # shape is het (aantal mogelijk acties, aantal states) en we vullen np.full vvvvvvvv&& alles met 1/4 = 0.25
+
         self.π = np.full((self.env.n_actions, self.env.state_size), fill_value=1 / self.env.n_actions)
 
-        # state value table
+        # state value table, de v() tabel heeft in het begin overal de waarde 0
         self.v_values = np.zeros((self.env.state_size,))
 
-        # state-action table
+        # state-action table de q() tabel heeft in het begin overal de waarde 0
         self.q_values = np.zeros((self.env.state_size, self.env.n_actions))
 
         # Procedure start met pi - q aanpassen - v aanpassen - terug pi aanpassen
@@ -85,38 +89,40 @@ class TabularLearner(LearningStrategy):
             action = np.argmax(self.π[:, s])
         else:
             action = self.env.action_space.sample()  # als random kleiner is dan epsilon, neem een random actie
-        # print(f'ε: {self.ε}; Exploitation tradeoff: {exploitation_tradeoff}; N'
-        #       f'ext: {action}; Prop: {round(self.π[action, s],3)}')
-        # print(f'Policy for state {s} = {self.π[:, s]}')
+
         return action
 
     def evaluate(self):
         # TODO: COMPLETE THE CODE
-        # hier moet je niets voorzien, maar wel in de subklassen
         # Extra groene deel algoritme 3
+        # Haal voor elke state in de policy, de actie op en evalueer de Bellman vergelijking
+        # v_values[] horen bij die resp. pi tabel
+        for s in range(self.env.state_size):
+            self.v_values[s] = np.max(self.q_values[s, :])
 
         pass
 
     def improve(self):
         # TODO: COMPLETE THE CODE
         # De weg terug naar een verbeterde policy met v of q waarden
-        #Exploitation vs exploration trade-off
-        #a_start is de beste a, dus van welke actie is de bijhorende q waarde de hoogste, dus we zijn geinteresseerd
+        # Exploitation vs exploration trade-off
+        # a_start is de beste a, dus van welke actie is de bijhorende q waarde de hoogste, dus we zijn geinteresseerd
         # in de index.  Bv. als de eerste q waarde max is, dan is het 0, 2de q waarde 1 etc.
         # tie-breaken
         # nadien pi tabel updaten i.e. kans updaten voor die actie die bij die state hoort
         # als a = a_ster dan doe je 1, als a niet a_ster is dan doe je 2
         # tau is per episode.  Tau blijft dezelfde binnen een episode, verhogen pas na episode zodat epsilon begint
         # te zakken
+
+        # epsilon is de kans op het nemen van een random actie
+
         for s in range(self.env.state_size):
             best_a = np.argmax(self.q_values[s, :])
             for a in range(self.env.n_actions):
                 if best_a == a:
-                     self.π[a, s] = 1 - self.ε + self.ε/self.env.n_actions
+                     self.π[a, s] = 1 - self.ε + self.ε/self.env.n_actions  #greedy
                 else:
                      self.π[a, s] = self.ε/self.env.n_actions
         self.decay()
-        # print("=Policy improvement: policy π is updated=")
-        # print(f'timestamp t: {self.t}\n')
-        #print(f'{self.π}\n\n')
+
 

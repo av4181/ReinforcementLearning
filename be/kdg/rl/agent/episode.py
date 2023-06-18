@@ -16,7 +16,7 @@ class Episode:
     def __init__(self, env: Environment) -> None:
         self._env = env
         self._percepts: [Percept] = deque()
-        self.Gt = 0  # return Gt (discounted sum of rewards)
+        self.Gt = 0  # return Gt (discounted sum of rewards R + gamma*R + ...)
 
     def add(self, percept: Percept):
         self._percepts.append(percept)
@@ -30,6 +30,7 @@ class Episode:
         """ For EACH Percept in the Episode, calculate its discounted return Gt"""
         if t < (self.size - 1):
             p = self._percepts[t+1]
+            # halfwaardetijd, hoe verder in de tijd hoe minder de reward waard is
             self.Gt += np.exp(λ, t) * p.reward
             t += 1
             self.compute_returns()

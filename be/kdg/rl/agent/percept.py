@@ -4,6 +4,10 @@ class Percept:
         self._return = None  # this will hold the return G_t
         self._state, self._action, self._reward, self._next_state, self._done = percept
 
+    # R(s, a, s') in state s neem je actie a en komt terecht in s'
+    # hier hoort een reward bij
+    # het transitiemodel is de kans dat je in s' terecht komt gegeven je in state s bevindt en actie a neemt
+    # P(s' | s, a)
     @property
     def state(self):
         return self._state

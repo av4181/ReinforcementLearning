@@ -37,10 +37,11 @@ class LearningStrategy(ABC):
 
     @abstractmethod
     def learn(self, episode: Episode):
+        # ALGO 2
         # at this point subclasses insert their implementation
         # see for example be\kdg\rl\learning\tabular\tabular_learning.py
         # teller t telt per episode
-        #teller tau update bij einde episode
+        # teller tau update bij einde episode
         self.t += 1
         self.τ += 1
 
@@ -63,5 +64,5 @@ class LearningStrategy(ABC):
         self.ε = self.ε_min + (self.ε_max - self.ε_min) * np.exp(-self.λ * self.τ)
         pass
 
-    def on_episode_end(self):
-        self.τ += 1
+    # def on_episode_end(self):
+    #     self.τ += 1
