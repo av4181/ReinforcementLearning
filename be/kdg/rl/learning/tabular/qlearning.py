@@ -24,9 +24,13 @@ class Qlearning(TabularLearner):
         s2 = percepts.next_state
         done = percepts.done
 
+        # ALGORITME 3 BLAUWE GEDEELTE UPDATE Q WAARDES
         # state-action function, voor elke s, a berekenen we een utility value met de state action function q
         # die q hoort bij die resp pi tabel
         # 2de soort Bellman vergelijking
+
+        # UIT GEDETAILLEERD IN ALGORITME 4
+
         self.q_values[s, a] = self.q_values[s, a] + self.α * \
                               (r + self.γ * (np.max(self.q_values[s2, :]) - self.q_values[s, a]))
         if done:
@@ -35,6 +39,8 @@ class Qlearning(TabularLearner):
         # compute return
         episode.compute_returns(t=self.t, λ=self.λ)
 
+        # Hier roep je de policy iteration = evaluate() en improve() methode op
+        # ALGORITME 3 GROENE EN PAARSE GEDEELTE
         super().learn(episode)
 
 
@@ -57,14 +63,20 @@ class NStepQlearning(TabularLearner):
                 r = p.reward
                 s2 = p.next_state
                 done = p.done
+                # ALGORITME 3 BLAUWE GEDEELTE UPDATE Q WAARDES
                 # state-action function, voor elke s, a berekenen we een utility value met de state action function q
                 # die q hoort bij die resp pi tabel
                 # 2de soort Bellman vergelijking
+
+                # UIT GEDETAILLEERD IN ALGORITME 5
+
                 self.q_values[s, a] = self.q_values[s, a] - self.α * (self.q_values[s, a] -
                                       (r + self.γ * (np.max(self.q_values[s2, :]))))
                 if p.done:
                     self.total_rewards += r
 
+        # Hier roep je de policy iteration = evaluate() en improve() methode op
+        # ALGORITME 3 GROENE EN PAARSE GEDEELTE
         super().learn(episode)
 
 class MonteCarloLearning(TabularLearner):
@@ -81,10 +93,17 @@ class MonteCarloLearning(TabularLearner):
             r = p.reward
             s2 = p.next_state
             done = p.done
+            # ALGORITME 3 BLAUWE GEDEELTE UPDATE Q WAARDES
+
+            # UIT GEDETAILLEERD IN ALGORITME 5 en 6
+
             self.q_values[s, a] = self.q_values[s, a] - self.α * \
                                   (self.q_values[s, a] - (r + self.γ * (np.max(self.q_values[s2, :]))))
             if p.done:
                 self.total_rewards += r
+
+        # Hier roep je de policy iteration = evaluate() en improve() methode op
+        # ALGORITME 3 GROENE EN PAARSE GEDEELTE
         super().learn(episode)
 
 

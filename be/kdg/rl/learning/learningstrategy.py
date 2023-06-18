@@ -60,6 +60,7 @@ class LearningStrategy(ABC):
     def decay(self):
         # Reduce epsilon ε, because we need less and less exploration as time progresses
         # Zie het epsilon greedy algorithme
+        # dus epsilon wordt kleiner en kleiner
 
         self.ε = self.ε_min + (self.ε_max - self.ε_min) * np.exp(-self.λ * self.τ)
         pass

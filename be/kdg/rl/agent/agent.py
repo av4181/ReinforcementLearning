@@ -25,6 +25,9 @@ class Agent:
         self.n_episodes = n_episodes  # total episodes
         self.episode_count = 0
 
+        # Dus een agent wandelt rond in zijn environment, gedurende een aantal episodes en met een bepaalde learning
+        # strategy.  That's it!
+
     @abstractmethod
     def train(self) -> None:
         pass
@@ -61,6 +64,7 @@ class TabularAgent(Agent):
 
             # while the episode isn't finished by length
             # Implementatie algortime 1 (roept telkens algoritme 3 op)
+            # In dit gedeelte wandelen we rond in de environment en leren we van de episode
             while not self.learning_strategy.done():
 
                 # learning strategy (policy) determines next action to take

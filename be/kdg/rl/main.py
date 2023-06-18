@@ -4,7 +4,7 @@ import pygame as pygame
 from be.kdg.rl.agent.agent import TabularAgent, Agent, DQNAgent
 from be.kdg.rl.environment.openai import FrozenLakeEnvironment, CartPoleEnvironment
 from be.kdg.rl.learning.learningstrategy import LearningStrategy
-from be.kdg.rl.learning.tabular.qlearning import Qlearning, NStepQlearning
+from be.kdg.rl.learning.tabular.qlearning import Qlearning, NStepQlearning, MonteCarloLearning
 from be.kdg.rl.learning.approximate.deep_qlearning import DeepQLearning
 import gymnasium as gym
 

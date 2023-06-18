@@ -1,7 +1,7 @@
 import os
 
 # Hier kunnen de verschillende variabelen aangepast worden en kan de keuze van environment, agent en strategy gekozen worden
-current_experiment = "experiment08"
+current_experiment = "experiment20"
 n_episodes = 500
 output_freq = 10        # met welke frequentie wordt er output gegenereerd
 update_interval = 10    # update interval voor deep learning

@@ -50,6 +50,7 @@ class MarkovDecisionProcess:
     # DEZE 3 UPDATE FUNCTIES ZIJN AAN TE PASSEN
 
     # R(s, a, s') of R(s, a)
+    # laatste deel Bellmann vergelijking
     def update_reward(self, p: Percept) -> None:
         self._reward_model[p.state, p.next_state] = p.reward
         pass
@@ -60,8 +61,9 @@ class MarkovDecisionProcess:
         pass
 
     # transition model is de kans dat je naar state s' gaat gegevens huidige state s en actie a
-    # wet van voorwaardelijke kansen
+    # wet van voorwaardelijke kansen, productregel betekent hier gewoon een transformatie van 2D naar 3D matrix
     def update_transition_model(self, percept: Percept) -> None:
         # Update de kans dat een next_step wordt genomen, gegeven de huidige state en actie
+        # 2de deel Bellman vergelijking achter de sommatie
         self.P[percept.next_state, percept.state, percept.action] = self.n_tsa / self.n_sa
         pass
