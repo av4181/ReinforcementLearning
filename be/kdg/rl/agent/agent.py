@@ -17,7 +17,7 @@ from be.kdg.rl.utils.grafieken import ReturnVisual, QValuesVisual, PolicyVisual
 # AAN AGENT CLASS WERD NIETS GEWIJZIGD
 class Agent:
 
-    def __init__(self, environment: Environment, learning_strategy: LearningStrategy, n_episodes=10000):
+    def __init__(self, environment: Environment, learning_strategy: LearningStrategy, n_episodes=200):
         super().__init__()
         self.env = environment
         self.learning_strategy = learning_strategy
@@ -72,6 +72,7 @@ class TabularAgent(Agent):
                 action = self.learning_strategy.next_action(state)
                 # agent observes the results of his action : next state and the corresponding reward
                 # step method returns a tuple with values (s', r, terminated, truncated, info)
+                # step is an openAI method
                 t, r, terminated, truncated, info = self.env.step(action)
 
                 # render environment (don't render every step, only every X-th, or at the end of the learning process)

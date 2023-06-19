@@ -16,6 +16,7 @@ class OpenAIGym(Environment, ABC):
         super().__init__()
         self._name = name
         self._env: TimeLimit = gym.make(name,render_mode='human')
+        # voor een 8x8 omgeving env = gym.make('FrozenLake-v0', map_name='8x8')
 
     def reset(self):
         return self._env.reset()
@@ -65,8 +66,17 @@ class FrozenLakeEnvironment(OpenAIGym):
 
 class CartPoleEnvironment(OpenAIGym):
 
+    # STATE SPACE : MOGELIJKE WAARDEN DIE ZICH KUNNEN VOORDOEN BINNEN DEZE OMGEVING
+    # ALLE CONTINUE WAARDEN
+    # POSITIE
+    # SNELHEID
+    # HOEK
+    # HOEKSNELHEID
+    # ACTIONS SPACE IS EEN DISCRETE ACTIE LINKS OF RECHTS  < -- > MOUNTAIN CAR
+
     def __init__(self) -> None:
         super().__init__(name='CartPole-v1')    # versie v0 is outdated
+
 
 # TOEVOEGEN VAN DE NONSLIPPERY ENVIRONMENT
 

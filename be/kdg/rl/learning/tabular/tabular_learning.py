@@ -18,13 +18,15 @@ class TabularLearner(LearningStrategy):
     q_values: ndarray
 
     # ALGORITME 3 INIT() --> CONSTRUCTOR
-    def __init__(self, environment: Environment, α=0.7, λ=0.0005, γ=0.9, t_max=99) -> None:
+    def __init__(self, environment: Environment, α=0.7, λ=0.0005, γ=0.9, t_max=200) -> None:
         super().__init__(environment, λ, γ, t_max)
         # learning rate alfa = hoeveel moet de originele Q(s,a) veranderd worden.  Evenwicht tussen het belang van het
         # verleden en nieuwe ingewonnen informatie.  alfa =1 te snel, alfa = 0 er wijzigt niets
         self.α = α
 
         # γ discount factor belang toekomstige rewards vs. directe rewards "beter 1 vogel in de hand dan 2 in de lucht"
+        # γ = 0 de agent focused enkel op immediate rewards, γ = 1 toekomstige reward is evenwaardig aan immediate reward
+        # in frozen lake willen we een hoge discount factor omdat er slechts 1 reward is helemaal op het einde
 
         # policy table, initiële policy tabel bevat voor elke state 1/aantal acties.  We hebben BOVEN, BENEDEN, LINKS
         # en RECHTS DUS 0.25 IN DE INITIÊLE TABEL VOOR ELKE STATE
@@ -97,6 +99,7 @@ class TabularLearner(LearningStrategy):
             action = np.argmax(self.π[:, s])
         else:
             action = self.env.action_space.sample()  # als random kleiner is dan epsilon, neem een random actie
+            # sample() is niet de sample() functie uit environment klasse, maar ingebouwde functie
 
         return action
 
@@ -140,6 +143,7 @@ class TabularLearner(LearningStrategy):
                      # naar het einde toe wordt epsilon kleiner en gaat de kans dus meer en meer naar 1 dat ook de beste
                      # actie wordt gekozen als volgende actie en EXPLOITEREN we dus meer
                 else:
+                    # 1/4 = 0.25 in het begin
                      self.π[a, s] = self.ε/self.env.n_actions
 
         # decay methode in de super klasse

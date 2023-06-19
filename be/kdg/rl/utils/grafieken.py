@@ -19,15 +19,16 @@ class PolicyVisual:
         plt.title('policy π')
         policy_by_action = np.argmax(np.transpose(policy), 1)
         action_mapping = {
-            0: [-1, 0],     # Left
-            1: [0, -1],     # Down
-            2: [1, 0],      # Right
-            3: [0, 1]       # Up
+            0: [-1, 0],     # Links
+            1: [0, -1],     # Onder
+            2: [1, 0],      # Rechts
+            3: [0, 1]       # Boven
         }
 
         xy_values = [action_mapping[value] for value in policy_by_action]
         x_values = np.reshape([col[0] for col in xy_values], (4,4))
         y_values = np.reshape([col[1] for col in xy_values], (4,4))
+        # matplotlib methode quiver() om een 2D veld met pijltjes te tekenen
         plt.quiver(x_values, y_values)
         plt.savefig(os.path.join(
             parameters.params.get("dirs").get("output"),

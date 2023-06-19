@@ -2,7 +2,7 @@ import os
 
 # Hier kunnen de verschillende variabelen aangepast worden en kan de keuze van environment, agent en strategy gekozen worden
 current_experiment = "experiment20"
-n_episodes = 500
+n_episodes = 200
 output_freq = 10        # met welke frequentie wordt er output gegenereerd
 update_interval = 10    # update interval voor deep learning
 
@@ -44,39 +44,39 @@ params = {
             't_max': 99
         },
         "experiment02": {
-            'description': 'Experiment QLearning',
+            'description': 'Experiment QLearning high discount higher decay',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'Qlearning',
             'ddqn': None,
             'n': None,
             'α': 0.7,
-            'λ': 0.0005,
+            'λ': 0.005,
             'γ': 0.9,
             't_max': 99
         },
         "experiment03": {
-            'description': 'Experiment QLearning with lower discount rate',
+            'description': 'Experiment QLearning with lower discount rate and higher decay',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'Qlearning',
             'ddqn': None,
             'n': None,
             'α': 0.7,
-            'λ': 0.0005,
+            'λ': 0.005,
             'γ': 0.5,
             't_max': 99
         },
         "experiment04": {
-            'description': 'Experiment QLearning with decreased learning rate',
+            'description': 'Experiment QLearning with increased learning rate and high discount',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'Qlearning',
             'ddqn': None,
             'n': None,
-            'α': 0.5,
-            'λ': 0.0005,
-            'γ': 0.5,
+            'α': 0.9,
+            'λ': 0.005,
+            'γ': 0.9,
             't_max': 99
         },
         "experiment05": {
@@ -87,20 +87,20 @@ params = {
             'ddqn': None,
             'n': None,
             'α': 0.2,
-            'λ': 0.0005,
-            'γ': 0.5,
+            'λ': 0.01,
+            'γ': 0.9,
             't_max': 99
         },
         "experiment06": {
-            'description': 'Experiment QLearning with large learning rate',
+            'description': 'Experiment QLearning with low learning rate and lower decay',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'Qlearning',
             'ddqn': None,
             'n': None,
-            'α': 0.9,
-            'λ': 0.0005,
-            'γ': 0.5,
+            'α': 0.2,
+            'λ': 0.005,
+            'γ': 0.9,
             't_max': 99
         },
         "experiment07": {
@@ -115,7 +115,7 @@ params = {
             'γ': 0.1,
             't_max': 99
         },
-        "experiment08": {
+        "experiment08": {                                   # dit lijkt de beste resultaten te geven
             'description': 'Experiment QLearning',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
@@ -160,24 +160,24 @@ params = {
             'ddqn': None,
             'n': '7',
             'α': 0.7,
-            'λ': 0.0005,
+            'λ': 0.001,
             'γ': 0.5,
             't_max': 99
         },
         "experiment13": {
-            'description': 'Experiment NStepQLearning with larger step-size',
+            'description': 'Experiment NStepQLearning with smaller step-size',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'NStepQlearning',
             'ddqn': None,
             'n': '2',
             'α': 0.6,
-            'λ': 0.0005,
+            'λ': 0.001,
             'γ': 0.9,
             't_max': 99
         },
         "experiment14": {
-            'description': 'Experiment NStepQLearning with larger step-size',
+            'description': 'Experiment NStepQLearning with smaller decay',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'NStepQlearning',
@@ -189,7 +189,7 @@ params = {
             't_max': 99
         },
         "experiment15": {
-            'description': 'Experiment NStepQLearning with larger step-size',
+            'description': 'Experiment NStepQLearning with smaller discount',
             'agent': 'TabularAgent',
             'environment': 'FrozenLakeEnvironment',
             'learning': 'NStepQlearning',

@@ -9,6 +9,7 @@ from be.kdg.rl.environment.environment import Environment
 from be.kdg.rl.learning.learningstrategy import LearningStrategy
 from be.kdg.rl.learning.model import model1
 
+# DEEP Q LEARNING = RL ALGORITME + ANN
 
 class DeepQLearning(LearningStrategy):
     """
@@ -16,8 +17,8 @@ class DeepQLearning(LearningStrategy):
     These nets are denoted as Q1 and Q2 in the pseudocode.
     This class is INCOMPLETE.
     """
-    q1: Model  # keras NN this will be trained and is used to predict best action
-    q2: Model  # keras NN used to build training set for q1
+    q1: Model  # deze wordt getraind om de beste actie te voorspellen
+    q2: Model  # wordt gebruikt om een training set te maken voor q1
 
     # The initial state is fed as an input to the neural network and returns the Q-value of all possible actions as an
     # output.
@@ -28,8 +29,9 @@ class DeepQLearning(LearningStrategy):
     def __init__(self, environment: Environment, batch_size: int, ddqn=False, λ=0.0005, γ=0.99, t_max=200) -> None:
         super().__init__(environment, λ, γ, t_max)
         self.batch_size = batch_size
-        self.ddqn = ddqn  # are we using double deep q learning network?
+        self.ddqn = ddqn  # al of niet gebruiken double deep q learning network
         # TODO: COMPLETE THE CODE
+        # ALGORITME 7
         self.c = 10
         self.q1 = model1.create_model("model1", self.env.state_size, self.env.n_actions)
         self.q2 = model1.create_model("model1", self.env.state_size, self.env.n_actions)
@@ -37,6 +39,8 @@ class DeepQLearning(LearningStrategy):
 
     def on_learning_start(self):
         # TODO: COMPLETE THE CODE
+        # BEGIN TIMESTEP 0. STOPPEN BIJ MAX 500
+        # INDIEN 195 TIMESTEPS WERDE GEHAALD IS GOED
         self.t = 0
 
     def next_action(self, state):
@@ -54,6 +58,7 @@ class DeepQLearning(LearningStrategy):
         """ Sample batch from Episode and train NN on sample"""
         # TODO: COMPLETE THE CODE
         if episode.size >= self.batch_size:
+            # vanaf een bepaalde batch_size ga je dus een random sample nemen uit de episode
             percepts = episode.sample(self.batch_size)
             self.learn_from_batch(percepts)
         super().learn(episode)
@@ -61,6 +66,7 @@ class DeepQLearning(LearningStrategy):
     def build_training_set(self, episode: Episode):
         """ Build training set from episode """
         # TODO: COMPLETE THE CODE
+        # ReplayMemory voor toevoegen recepts en bufferen
         training_data = deque()
         for p in episode:  # random sample of percepts
             s = p.state
@@ -69,11 +75,15 @@ class DeepQLearning(LearningStrategy):
             s2 = p.next_state
             done = p.done
 
+            # dit een vektor met een waarde voor actie 1 en een waarde voor actie 2.  Voor CartPole dus 2 waardes
             q_values = self.q1.predict(np.reshape(s, [1, self.env.state_size]))
             if self.ddqn:
+                # vraag q1 wat zijn voorspelling zou zijn voor de next state, geef dus het argument dat hoort bij de
+                # maximale q-waarde
                 optimal_a = np.argmax(self.q1.predict(np.reshape(s2, [1, self.env.state_size])))
                 optimal_q = self.q2.predict(np.reshape(s2, [1, self.env.state_size]))[optimal_a]
             else:
+                # idem opnieuw een vektor met 2 waardes voor de cartpole
                 optimal_q = np.max(self.q2.predict(np.reshape(s2, [1,
                                                                    self.env.state_size])))  # Q2 wordt gebruikt om een training set te bouwen voor Q1
 
