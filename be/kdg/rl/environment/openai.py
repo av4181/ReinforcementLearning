@@ -15,7 +15,7 @@ class OpenAIGym(Environment, ABC):
     def __init__(self, name: str) -> None:
         super().__init__()
         self._name = name
-        self._env: TimeLimit = gym.make(name,render_mode='human')
+        self._env: TimeLimit = gym.make(name,render_mode='rgb_array')
         # voor een 8x8 omgeving env = gym.make('FrozenLake-v0', map_name='8x8')
 
     def reset(self):

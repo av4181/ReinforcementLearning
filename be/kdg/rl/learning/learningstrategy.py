@@ -43,7 +43,7 @@ class LearningStrategy(ABC):
         # teller t telt per episode
         # teller tau update bij einde episode
         self.t += 1
-        self.τ += 1
+        # self.τ += 1
 
     @abstractmethod
     def on_learning_start(self):
@@ -63,7 +63,8 @@ class LearningStrategy(ABC):
         # dus epsilon wordt kleiner en kleiner
 
         self.ε = self.ε_min + (self.ε_max - self.ε_min) * np.exp(-self.λ * self.τ)
+        print("Huidige epsilon waarde" + str(self.ε))
         pass
 
-    # def on_episode_end(self):
-    #     self.τ += 1
+    def on_episode_end(self):
+        self.τ += 1
